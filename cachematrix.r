@@ -1,8 +1,11 @@
-## Put comments here that give an overall description of what your
-## functions do
+##Use the "inv" function as an alternative to the "solve" function
+##to find the inverse of a matrix
 
-## Write a short comment describing this function
+install.packages("matlib")
+library("matlib")
 
+#First make an inverse matrix, each item in list can be called individually
+#external to the function ie: get(), set()...
 makeCacheMatrix <- function(x = matrix()) {
   inv <- NULL
   set <- function(y) {
@@ -11,7 +14,10 @@ makeCacheMatrix <- function(x = matrix()) {
   }
   get <- function() x
   setinverse <- function(inverse) inv <<- inverse
-  getinverse <- function() inv 
+  getinverse <- function(){
+    inver<-ginv(x)
+    inver%*%x #function to obtain inverse of matrix
+  }
   
   list(set = set, get = get,
        setinverse = setinverse,
@@ -20,7 +26,7 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## This will return the inverse of the matrix if the matrix is not "null"
 
 cacheinverse <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
@@ -34,3 +40,9 @@ cacheinverse <- function(x, ...) {
   x$setinverse(inv)
   inv
 }
+
+#Test the functions out below
+example<-makeCacheMatrix(matrix(4:10,4,4)) #function 1
+example$get()
+example$getinv()
+cacheinverse(example) #function 2
